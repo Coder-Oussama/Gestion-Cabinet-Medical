@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drugs</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./boots/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./boots/css/bootstrap-grid.css">
+<style>
+    .content table td .btn,
+.btnDel {
+  font-size: 1rem !important;
+  padding: 0.125rem 0.25rem !important;
+  font-weight: 300 !important;
+}
+.btn-primary {
+  background-color: #2b7ee4 !important;
+  border: 2px solid #2b7ee4 !important;
+}
+.table-info {
+  background-color: #2b7ee4bd !important;
+}
+.content .card form {
+  width: 60%;
+}
+.DeltBtn .btnDel{
+  font-size: 25px !important;
+  line-height: 72px;
+  color: red;
+}
+.EditBtn{
+  background-color: #E6EAF0 !important;
+  border-radius: 5px;
+  color: #03045E !important;
+}
+.EditBtn:hover{
+  background-color: #007bff !important;
+  color: #fff !important;
+}
+input[type='checkbox'], input[type='radio']{
+  width: 20px;
+  height: 20px;
+  margin-left: 30px;
+  align-items: center;
+  /* margin-right: auto; */
+  padding: 10px ;
+}
+
+</style>
+</head>
+<body style="background-color: rgba(26, 128, 0, 0.075);">
+
+        <div class="container-fluid">
+
+        <!-- الرأس والعنوان -->
+        <div class="row">
+            <header id="head" class="d-flex justify-content-center align-items-center">
+                <h1 class="text-center font-weight-bold mr-2" style="color: green;">
+                    MÉDICAMENTS
+                </h1>
+            </header>
+        </div>
+        <!-- نهاية الرأس والعنوان -->
+
+        <!-- العمليات الرئيسية -->
+     
+           
+            <div class="container-fluid ">
+               <button class="btn btn-primary font-weight-bold retour">
+                <a href="maladie.html" >RETOUR</a>
+               </button> 
+               <button id="Ajo" class="btn btn-primary retour font-weight-bold float-right">
+                Ajouter un médicament
+               </button> 
+                 <div id="Diseases" class="row  d-flex ">
+                
+         <!-- <div class="input-group mb-3 col-10 mx-auto">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <input type="checkbox" aria-label="Checkbox for following text input">
+                </div>
+              </div>
+           <input type="text" class="form-control" aria-label="Text input with checkbox">
+         </div> -->
+                  
+          <div class="content col-12   mt-3 ">
+          <table class="table  ">
+            <thead class="bg-info">
+              <tr class="text-white">
+                <th scope="col ">#</th>
+                <th scope="col" class=" col-2">nom commercial</th>
+                <th scope="col" class=" col-2">nom scientifique</th>
+                <th scope="col" class=" col-2">forme</th>
+                <th scope="col" class=" col-4">Description</th>
+                <th scope="col" class=" col-1">Edit</th>
+                <th scope="col" class=" col-1">Select</th>
+              </tr>
+            </thead>
+            <tbody id="TableData1">
+              <!--
+                <tr id="" class="border-bottom">
+                <th scope="row">1</th>
+                <td class="my-auto">
+                    paractemol
+                </td>
+                <td >(Aspirin)</td>
+                <td >cg 200 mg</td>
+                <td >1 fois par jrs / 1 semaine 1 fois par jrs / 1 semaine  1 fois par jrs / 1 semaine 1 fois par jrs / 1 semaine </td>
+                <td>
+                  <button
+                    class="btn btn-warning btn-link text-center"
+                    type="button"  >
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                  <button id="" class="btn  text-center btn-danger" type="sub">
+                    <i class="bi bi-trash-fill"></i>
+                  </button>
+                </td>
+                <td><input type="checkbox" class="p-3 "> </td>
+              </tr>
+                 <tr id="" class="border-bottom">
+                <th scope="row">1</th>
+                <td class="my-auto">
+                    paractemol
+                </td>
+                <td >(Aspirin)</td>
+                <td >cg 200 mg</td>
+                <td >1 fois par jrs / 1 semaine 1 fois par jrs / 1 semaine  1 fois par jrs / 1 semaine 1 fois par jrs / 1 semaine </td>
+                <td>
+                  <button
+                    class="btn btn-warning btn-link text-center"
+                    type="button"  >
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                  <button id="" class="btn  text-center btn-danger" type="sub">
+                    <i class="bi bi-trash-fill"></i>
+                  </button>
+                </td>
+                <td><input type="checkbox" class="p-3 "> </td>
+              </tr>
+          
+              -->
+                 
+            </tbody>
+          </table>
+                </div>
+                  <div class="ml-5">
+                     <button type="submit" id="enreg" class="btn btn-primary font-weight-bolder ">
+                 enregistrer
+               </button> 
+                <button type="submit" id="print" class="btn btn-primary font-weight-bolder ml-2">
+                 Imprimer
+               </button> 
+                  </div> 
+               
+              
+                </div>
+            
+              </div>
+            
+             
+ 
+       
+        <!-- نهاية العمليات الرئيسية -->
+    </div>
+    <script src="./js/drugs.js"></script>
+   
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "electron-app",
+  "version": "1.0.0",
+  "description": "This Gestion Cabinet Medical electron app",
+  "main": "main.js",
+  "scripts": {
+    "postinstall": "electron-builder install-app-deps",
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "bootstrap": "^4.5.3",
+    "electron": "^19.0.8",
+    "electron-builder": "^23.3.3",
+    "electron-packager": "^16.0.0"
+  },
+  "dependencies": {
+    "bootstrap-icons": "^1.9.1",
+    "sqlite3": "^5.0.11"
+  }
+}

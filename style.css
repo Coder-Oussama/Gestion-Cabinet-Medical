@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+header{
+    color: blue;
+    background-color: #c3ceee8a;
+    width: 110%;
+    height: 90px;
+    position: fixed;
+    z-index: 999;
+    padding: 10px 200px;
+    word-spacing: 15px;
+    letter-spacing: 5px;
+    margin-bottom: 20px;
+}
+
+/*  */
+body .operations{
+  margin-top: 100px !important;
+  /* border: 2px solid rgb(194, 194, 248); */
+ 
+  border-radius: 5px; 
+  padding: 0;
+}
+.operations .side{
+  border-right: 4px solid rgb(194, 194, 248);
+  padding: 30px 10px;
+}
+
+.list-group{
+  border: none !important;
+}
+.list-group .list-group-item a{
+  text-decoration: none !important;
+}
+.list-group .list-group-item{
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  padding: 0.5rem 1.25rem !important;
+  border-top: 1px solid rgba(0,0,0,.125)!important;
+  border-radius: 5px;
+  background-color: rgba(227, 230, 230, 0.226);
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.list-group .list-group-item:hover,
+.list-group .list-group-item:focus{
+  padding: 0.5rem 1.5rem;
+  color: #007bff;
+  font-size: 20px;
+  background-color: #c3ceee8a;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+/* .container-fluid main{
+  
+
+  width: 100% !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+} */
+
+/******************
+*************
+Maladie Data Page
+************* 
+ ****************/
+
+ .logo img {
+  width: 180px;
+  height: 180px;
+  background-color: transparent !important;
+  text-align: center;
+  margin-top: 20px;
+}
+.login-form {
+  background-color: #ffffff;
+  width: 400px !important;
+  height: 250px !important;
+  margin-top: 0px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* form{
+  /* width: 250px !important;
+  height : 250px !important; */
+/* }  */
+.btn-primary {
+  background-color: #133764 !important;
+  border-color: #133764 !important;
+}
+.inf{
+   margin-top: 30px !important;
+   font-size: 22px;
+   font-weight: 500;
+   color: #133764;
+}
+#PATH,#Diseases{
+  margin-top: 100px;
+  /* border: 2px solid ; */
+  /* text-align: center; */
+  margin-left: 100px;
+}
+.col-3{
+  max-width: 23% !important;
+}
+.opera{
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+#PATH .patho,#Diseases .patho{
+  color: #133764;
+  border: 2px solid #007bff;;
+  margin: 10px;
+  padding: 10px 12px;
+  font-size: 16px;
+  font-weight: bold;
+  /* padding: 0.25rem 1.125rem !important; */
+  border: 1px solid rgba(0,0,0,.125)!important;
+  border-radius: 5px;
+  background-color: rgba(227, 230, 230, 0.226);
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+#PATH .patho:hover,
+#PATH .patho:focus,
+#Diseases .patho:hover,
+#Diseases .patho:focus{
+  color: #007bff;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 0.514);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.patho a{
+  text-decoration: none !important;
+}
+.maladie-side, .retour  {
+  position: relative;
+  top: 100px;
+  font-weight: bold;
+  font-size: 20px;
+  
+}
+.retour a {
+  text-decoration: none !important;
+  color: #fff !important;
+  font-weight: bold;
+
+}
+.maladie-side .ajouter {
+  font-size: 20px;
+  font-weight: bold;
+}
+/*.maladie-side .Maladie_Info{
+  position: relative;
+  top: 11px;
+  left: 30px;
+  background-color: #e2e7f58a;
+  border:  0.5px solid #e2e7f58a;
+  padding: 10px;
+}*/
+span.pathName{
+  /* text-align-last: end !important; */
+  /* line-height: 15px; */
+  position: absolute;
+  line-height: 30px;
+  /* text-align: center !important; */
+  /* overflow-wrap: break-word; */
+}
+#name-Maldie{
+  margin-right: 15px;
+}
+#PATH{
+  list-style: none;
+}
+#Diseases{
+list-style: none;
+display: grid;
+grid-template-columns: 25% 25% 25% 25%;
+}
+/*.maladie{
+  color: #133764;
+    border: 2px solid #007bff;
+    margin: 10px;
+    padding: 10px 12px;
+    font-size: 20px;
+    font-weight: bold;
+    // padding: 0.25rem 1.125rem !important; 
+    border: 1px solid rgba(0,0,0,.125)!important;
+    border-radius: 5px;
+    background-color: rgba(227, 230, 230, 0.226);
+    box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+
+}*/
+.data-form{
+
+  background-color: #ffffff;
+  width: 400px !important;
+  height: 370px !important;
+  margin-top: 0px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+#Submit{
+  position: relative;
+  bottom: -10px;
+}
+.containerData{
+  position: relative;
+  top: -5px;
+  
+}
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    cursor: pointer;
+    margin-right: 5px;
+}

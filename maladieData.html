@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maladie</title>
+     <link rel="stylesheet" href="./boots/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./style.css">
+    
+</head>
+<body style="background: #E5E5E5">
+     <div class="container">
+        
+        <h4 class="inf text-center ">
+            Entrer les informations de patient
+          </h4>
+        <div class="row">
+  
+          <div class="login-form mx-auto">
+            <form  onsubmit="login" id="loginForm" class="p-3 pt-4">
+                <div class="form-group">
+                  <label for="inputEmail1" class="font-weight-bold">Nom de patient:</label>
+                  <input required type="text" class="form-control" id="inputName1" >
+                </div>
+                <div class="form-group ">
+                  <label for="inputPassword1" class="font-weight-bold">Age de patient:</label>
+                  <div>
+                      <input  required type="number" class="form-control" id="inputAge" minlength="0" maxlength="120">
+                  </div>
+                </div>
+           
+                <button id="buttonSubmit" type="submit"  class="btn btn-primary">Entrer</button>
+              </form>
+          </div>
+        </div>
+    </div>
+    <script src="js/AddNameAge.js"></script>
+</body>
+</html>
