@@ -1,7 +1,4 @@
 const { ipcRenderer } = require("electron");
-
-
-
 let id;
 ipcRenderer.on('data-editDrug',function(e,dataDrug){
     console.log(dataDrug);
@@ -14,7 +11,6 @@ ipcRenderer.on('data-editDrug',function(e,dataDrug){
     nameSienti.value=dataDrug[1];
     Form.value=dataDrug[2];
     des.value=dataDrug[3];
-
 
 });
 const form = document.querySelector('form');

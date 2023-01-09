@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      * {
+        padding: 0;
+        margin: 0 auto;
+        box-sizing: border-box;
+      }
+
+      /* ==== GRID SYSTEM ==== */
+      .container {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 30px;
+      }
+
+      .row {
+        position: relative;
+        width: 100%;
+      }
+
+      .row [class^="col"] {
+        float: left;
+      }
+
+      .row::after {
+        content: "";
+        clear: both;
+        display: block;
+      }
+
+      .col-1 {
+        width: 8.33%;
+      }
+      .col-2 {
+        width: 16.66%;
+      }
+      .col-3 {
+        width: 25%;
+      }
+      .col-4 {
+        width: 33.33%;
+      }
+      .col-5 {
+        width: 41.66%;
+      }
+      .col-6 {
+        width: 50%;
+      }
+      .col-7 {
+        width: 58.33%;
+      }
+      .col-8 {
+        width: 66.66%;
+      }
+      .col-9 {
+        width: 75%;
+      }
+      .col-10 {
+        width: 83.33%;
+      }
+      .col-11 {
+        width: 91.66%;
+      }
+      .col-12 {
+        width: 100%;
+      }
+
+      /* Custom */
+
+      .container {
+        min-height: 100vh !important;
+        /* border: 1px solid black; */
+        max-width: 100%;
+        margin: 0 auto;
+        margin-top: 10px;
+      }
+      header {
+        min-height: 83px;
+      }
+
+      .doc-details {
+        margin-top: 5px;
+        margin-left: 15px;
+        font-size: 18px;
+      }
+
+      .clinic-details {
+        margin-top: 5px;
+        margin-left: 15px;
+      }
+      .doc-name {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      .doc-meta {
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+      .datetime {
+        font-size: 14px;
+        margin-top: 5px;
+      }
+
+      .row.title {
+        font-weight: bold;
+        padding-left: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      .maldie-info {
+        padding-left: 20px;
+        padding-top: 50px;
+      }
+      .prescription-title {
+        text-align: center;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+      .prescription .medic-list {
+        margin-top: 50px;
+      }
+      .prescription ul {
+        /* text-align: center; */
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        left: 50px;
+      }
+      .prescription ul li {
+        margin-bottom: 10px;
+      }
+
+      button {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 10px;
+        cursor: pointer;
+      }
+      @media print {
+        body.receipt {
+          width: 148mm;
+          height: 209mm;
+        }
+      }
+    </style>
+  </head>
+  <body class="receipt">
+    <div id="con" class="container">
+      <header class="row">
+        <div class="col-9">
+          <div class="doc-details">
+            <p class="doc-name">D. Tawfik Salem WARDIANI</p>
+            <p class="doc-meta">Assermente/Expert aupres des tribunaux</p>
+            <p class="doc-meta">Cite 11 Dec. 1960 N°06 -Adrar-</p>
+            <p class="doc-meta">Tel, : 049 36 72 04</p>
+          </div>
+        </div>
+        <div class="col-3 datetime">
+          <p>Adrar le: <span id="date"></span></p>
+        </div>
+      </header>
+
+      <div class="row prescription">
+        <div class="maldie-info">
+          <h3>
+            Nom:
+            <span id="name"> </span>
+          </h3>
+          <h3>
+            Age:
+            <span id="age"></span>
+          </h3>
+        </div>
+
+        <h2 class="prescription-title">
+          <u></u>
+        </h2>
+        <div class="medic-list">
+          <ul class="uld"></ul>
+        </div>
+      </div>
+    </div>
+
+    <script src="./js/rcipeAnalyse.js"></script>
+  </body>
+</html>

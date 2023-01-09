@@ -1,12 +1,19 @@
 const { ipcRenderer } = require("electron");
-const Path = require("path"); // نستورد هذه المكتبة لغرض إنشاء المسار الصحيح لملف قاعدة البيانات
+const Path = require("path"); 
 const dbPath = Path.join(
   // ننشيء المسار الجديد ونضعه في ثابت
   Path.dirname("c://"), //  مسار القرص الصلب الذي قمنا بإختياره
   "/databases/drugsDB.db" // هنا تضع هذا المسار الذي يشير الى ملف قاعدة البيانات
 );
 
+/* Path.join(
+  // ننشيء المسار الجديد ونضعه في ثابت
+  Path.dirname("~yaakoub/"), 
+  "drugsDB.db"// هنا تضع هذا المسار الذي يشير الى ملف قاعدة البيانات
+); */
+
 window.localStorage.removeItem("Drugs");
+window.localStorage.removeItem('analyse')
 let aj = document.getElementById("ajouter");
 aj.addEventListener("click", function (e) {
   ipcRenderer.send("open-newWindow", "open Window");
@@ -14,7 +21,7 @@ aj.addEventListener("click", function (e) {
 });
 ///
 const sqlite3 = require("sqlite3");
-var db = new sqlite3.Database(dbPath, (err) => {
+var db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
   if (err) {
     console.log("could not open db");
   } else {
@@ -34,6 +41,17 @@ db.run(
   (err) => {
     if (err) return console.log(err);
     console.log("ok");
+  }
+);
+db.run(`
+  CREATE TABLE IF NOT EXISTS certaficate (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title text,
+  certaficat text
+)`,
+(er) => {
+  if (er) return console.log(er);
+  console.log("ok2");
   }
 );
 
@@ -76,3 +94,8 @@ if (name && Age) {
   maladieName.appendChild(n);
   maladieAge.appendChild(A);
 }
+let certficate=document.getElementById('cert');
+certficate.addEventListener('click',function(){
+  
+  ipcRenderer.send('open-certficatepage');
+})

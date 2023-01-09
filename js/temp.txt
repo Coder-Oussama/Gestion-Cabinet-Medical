@@ -1,0 +1,286 @@
+const { ipcRenderer } = require("electron");
+const Path = require("path"); // نستورد هذه المكتبة لغرض إنشاء المسار الصحيح لملف قاعدة البيانات
+// const dbPath = "/home/yaakoub/drugsDB.db" ;
+const dbPath = Path.join(
+  // ننشيء المسار الجديد ونضعه في ثابت
+  Path.dirname("c://"), //  مسار القرص الصلب الذي قمنا بإختياره
+  "/databases/drugsDB.db" // هنا تضع هذا المسار الذي يشير الى ملف قاعدة البيانات
+);
+const sqlite3 = require("sqlite3");
+var db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
+  if (err) {
+    console.log("could not open db");
+  } else {
+    console.log("Connected to db");
+  }
+});
+db.run(
+  `CREATE TABLE IF NOT EXISTS analyses (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  analyse text,
+  name text,
+  fullName text,
+  description text
+)`,
+  (err) => {
+    if (err) return console.log(err);
+    console.log("ok");
+  }
+);
+let analyseName = localStorage.getItem('analyseName')
+let AnalyseTiltle=document.getElementById('AnalyseTitle');
+AnalyseTiltle.innerHTML=analyseName;
+let tbody = document.getElementById("TableData2");
+let trr = document.createElement("tr");
+
+
+// hna tafichi lanalyses li f db
+let counter = 1
+db.each(
+  "SELECT * FROM analyses WHERE analyse = ?",
+  [analyseName],
+  (err, row) => {
+    if(err) return console.log(err)
+    console.log(row)
+    trr.setAttribute("id", row.id);
+    console.log(trr)
+    trr.classList.add("border-bottom");
+
+    trr.classList.add("border-bottom");
+    let tdNum = document.createElement("td")
+    let tdSelect = document.createElement("td")
+    let tdName = document.createElement("td")
+    let tdFullName = document.createElement("td")
+    let tdDescription = document.createElement("td")
+    let tdEdit = document.createElement("td")
+    let inb = document.createElement("input");
+    inb.setAttribute("id", "checbox");
+    inb.setAttribute("type", "checkbox");
+    inb.classList.add("p-3");
+
+    tdNum.append(counter++)
+    tdSelect.classList.add("col-1");
+    tdSelect.appendChild(inb);
+    tdName.append(row.name)
+    tdName.classList.add("col-2");
+    tdFullName.append(row.fullName)
+    tdFullName.classList.add("col-2");
+    tdDescription.append(row.description)
+    tdDescription.classList.add("col-2");
+    tdEdit.classList.add("col-1");
+
+    trr.appendChild(tdNum)
+    trr.appendChild(tdSelect)
+    trr.appendChild(tdName)
+    trr.appendChild(tdFullName)
+    trr.appendChild(tdDescription)
+
+    // delete button
+    let btnDel = document.createElement("button");
+    btnDel.setAttribute("id", row.id);
+    btnDel.setAttribute("type", `button`);
+    btnDel.className = "btn btn-warning btn-link";
+    btnDel.className = "text-center";
+    let i1 = document.createElement("i");
+    i1.className = "bi bi-pencil-square";
+    btnDel.appendChild(i1);
+    tdEdit.appendChild(btnDel);
+
+    //Edit button
+    let btnEdit = document.createElement("button");
+    btnEdit.setAttribute("id", row.id);
+    btnEdit.setAttribute("type", `button`);
+    btnEdit.className = "btn text-center btn-danger";
+    let i2 = document.createElement("i");
+    i2.className = "bi bi-trash-fill";
+    btnEdit.appendChild(i2);
+    tdEdit.appendChild(btnEdit);
+    trr.append(tdEdit)
+
+    tbody.appendChild(trr)
+  }
+)
+
+let AjouteBtn= document.getElementById('Ajo');
+console.log('hi')
+AjouteBtn.addEventListener('click',()=>{
+  ipcRenderer.send('Data-analysepage')
+
+});
+// ipcRenderer.on('nameAnalyse',function(e,name){
+    
+// });
+   // إستقبال معلومات التحليل 
+   ipcRenderer.on('data-analse',function(e,dataAnalyse){
+    let bod = document.querySelector("#TableData2");
+    // console.log(bod);
+    let name=dataAnalyse[0];
+    let fullName=dataAnalyse[1];
+    let Description=dataAnalyse[2];
+    console.log(name,fullName,Description)
+    // db.run(`INSERT INTO analyses (analyse, name, fullName, description) values(?,?,?,?)`,
+    // [analyseName, name, fullName, Description],
+    // function (err) {
+    //   if(err) return console.log(err)
+    //   console.log(this.lastID)
+    // })
+    let ind = bod.children.length;
+    let i = ind + 1;
+    // if (ind === 0) {
+    //   i = 0;
+    // } else {
+    //   let lastElem = bod.children[ind - 1];
+    //   i = Number(lastElem.children[0].innerText)+1;
+    // }
+    let tbody = document.getElementById("TableData2");
+    let trr = document.createElement("tr");
+    // trr.setAttribute("idDb", this.lastID);
+    trr.setAttribute("id", `ele${i}`);
+    trr.classList.add("border-bottom");
+    //
+    /// creat th elem
+    // console.log(i);
+    let th = document.createElement("th");
+    th.setAttribute("scope", "row");
+    th.appendChild(document.createTextNode(i));
+    trr.appendChild(th);
+    let td5 = document.createElement("td");
+    td5.classList.add("col-1");
+    let inb = document.createElement("input");
+    inb.setAttribute("id", "checbox");
+    inb.setAttribute("type", "checkbox");
+    inb.classList.add("p-3");
+    td5.appendChild(inb);
+    trr.appendChild(td5);
+    
+    ///
+    let td1 = document.createElement("td");
+      td1.classList.add("col-2");
+      td1.appendChild(document.createTextNode(name));
+      trr.appendChild(td1);
+    ////
+    let td2 = document.createElement("td");
+    td2.classList.add("col-2");
+    td2.appendChild(document.createTextNode(fullName));
+    trr.appendChild(td2);
+    ///
+    let td3 = document.createElement("td");
+    td3.classList.add("col-2");
+    td3.appendChild(document.createTextNode(Description));
+    trr.appendChild(td3);
+    
+    ///
+    let td4 = document.createElement("td");
+    td4.classList.add("col-1");
+    // create delet button
+    let but1 = document.createElement("button");
+    but1.setAttribute("id", `edit${i}`);
+    but1.setAttribute("type", `button`);
+    but1.className = "btn btn-warning btn-link";
+    but1.className = "text-center";
+    let i1 = document.createElement("i");
+    i1.className = "bi bi-pencil-square";
+    but1.appendChild(i1);
+    td4.appendChild(but1);
+    /// create edit button
+    let but2 = document.createElement("button");
+    but2.setAttribute("id", `delet${i}`);
+    but2.setAttribute("type", `button`);
+    but2.className = "btn text-center btn-danger";
+    let i2 = document.createElement("i");
+    i2.className = "bi bi-trash-fill";
+    but2.appendChild(i2);
+    td4.appendChild(but2);
+    trr.appendChild(td4);
+    tbody.append(trr);
+    console.log(trr.innerHTML)
+   //
+    //حدث  تحديد الأدوية checkbox
+    let chec = document.querySelectorAll("input");
+    // console.log(chec);
+    chec.forEach(function (el) {
+      el.addEventListener("change", (event) => {
+        let paren = el.parentNode.parentNode;
+        if (event.target.checked) {
+          paren = el.parentNode.parentNode;
+          paren.classList.add("cheked");
+        } else {
+          paren.classList.remove("cheked");
+        }
+      });
+    });
+    //
+    let tr = document.getElementById(`ele${i}`);
+      let dele = document.getElementById(`delet${i}`);
+      //حدث الضغط على زر الحذف
+      dele.addEventListener("click", function () {
+        let id = tr.children[0].innerText;
+        ipcRenderer.send("open-dialog", id);
+      });
+      ipcRenderer.on("delete-drugs", function (e, id) {
+        let tr = document.getElementById(`ele${id}`);
+        // حذف العنصر بعد تأكيد المستخدم
+        tbody.removeChild(tr);
+
+        let drugID = tr.getAttribute("idDb"); //hada hwa id nta3 dwa li baghi t7azfo
+       /* db.run(`DELETE FROM drug WHERE id = ?`, [Number(drugID)], (err) => {
+          if (err) return console.log(err.message);
+        });*/
+      });
+
+      let edit = document.getElementById(`edit${i}`);
+      let el = document.getElementById(`ele${i}`);
+      //دالة التعديل
+      edit.addEventListener("click", function () {
+    
+        let v2 = el.children[2].innerText;
+        let v3 = el.children[3].innerText;
+        let v4 = el.children[4].innerText;
+        let id = el.children[0].innerText;
+        let datadAnalyse = [ v2, v3, v4, id];
+         // إرسال العلومات إلى نافذة التعديل
+        ipcRenderer.send("dataAnalyse-edit", datadAnalyse);
+        ipcRenderer.on("data-analyseEdit", function (e, dataAnqlyseEdit) {
+            // إستقبال البيانات المعدلة من نافذةالتعديل
+            let elem = document.getElementById(`ele${dataAnqlyseEdit[3]}`);
+  
+        
+            elem.children[2].innerText = dataAnqlyseEdit[0];
+            elem.children[3].innerText = dataAnqlyseEdit[1];
+            elem.children[4].innerText = dataAnqlyseEdit[2];
+        /*    let sql = `UPDATE drug
+        SET commercialName = ?,
+        scientificName = ?,
+        form = ?,
+        description = ?
+        WHERE id = ?
+        `;
+            let id = Number(elem.getAttribute("idDb"));
+            db.run(
+              sql,
+              [
+                dataDrugedit[0],
+                dataDrugedit[1],
+                dataDrugedit[2],
+                dataDrugedit[3],
+                id,
+              ],
+              (err) => {
+                if (err) return console.log(err);
+              }
+            );*/
+          });
+
+      });
+      i++;
+   });
+   
+
+
+   
+
+// حدث زر الرجوع الى صفحة التحاليل
+let retourBtn =document.getElementById('retour');
+retourBtn.addEventListener('click',()=>{
+    ipcRenderer.send('retourToAnalysepage');
+})

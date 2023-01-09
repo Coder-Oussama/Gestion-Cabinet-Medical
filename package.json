@@ -16,6 +16,7 @@
     "electron-packager": "^16.0.0"
   },
   "dependencies": {
+    "@editorjs/editorjs": "^2.25.0",
     "bootstrap-icons": "^1.9.1",
     "sqlite3": "^5.0.11"
   }

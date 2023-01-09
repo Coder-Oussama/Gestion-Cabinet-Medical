@@ -1,12 +1,6 @@
 const electron = require("electron");
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 
-// // this should be placed at top of main.js to handle setup events quickly
-// if (handleSquirrelEvent(app)) {
-//     // squirrel event handled and app will exit in 1000ms, so don't do anything else
-//     return;
-// }
-
 let win;
 let wind;
 let windo;
@@ -32,7 +26,7 @@ function creatWindow(Win) {
       });
 }
 
-function creatnewWin() {
+function creatnewWin(w) {
   wind = new BrowserWindow({
     parent: win,
     modal: true,
@@ -43,7 +37,7 @@ function creatnewWin() {
       contextIsolation: false,
     },
   });
-  wind.loadFile("maladieData.html");
+  wind.loadFile(w);
 
   wind.on("closed", (e) => {
     e.preventDefault();
@@ -77,11 +71,11 @@ function creatDialogWin() {
   });
 }
 let options = {};
-let Options = {};
+let Options={};
 
 // فتح نافذة إدخال معلومات  المريض
 ipcMain.on("open-newWindow", function (event, arg) {
-  creatnewWin();
+  creatnewWin('maladieData.html');
 });
 
 ipcMain.on("close-Window", function (e, item) {
@@ -94,14 +88,12 @@ ipcMain.on("openPath-page", function () {
   win.loadFile("path.html");
 });
 // إستقبال الامراض الخاصة بكل تخصص
-
 ipcMain.on("openmaladie-page", function (e, data, NamePath) {
   win.loadFile("maladie.html");
   win.webContents.on("did-finish-load", () => {
     win.webContents.send("data-Maladie", data, NamePath);
   });
 });
-
 ipcMain.on("retour", function () {
   win.loadFile("path.html");
 });
@@ -174,8 +166,7 @@ ipcMain.on("save", function (event) {
   });
 });
 ////////////
-
-ipcMain.on('open-recip',function(e){
+ipcMain.on('open-recip',function(e,file){
   var opti = {
     silent: true,
     printBackground: true,
@@ -187,12 +178,11 @@ ipcMain.on('open-recip',function(e){
     pagesPerSheet: 1,
     collate: true,
     copies: 1,
-   header: 'Header of the Page',
-  footer: 'Footer of the Page',
-    // pageSize:'A5',
+  //  header: 'Header of the Page',
+  // footer: 'Footer of the Page',
+   
     // scaleFactor:100
   }
-  
   let win = new BrowserWindow({
 		show: false,
 		webPreferences: {
@@ -200,90 +190,130 @@ ipcMain.on('open-recip',function(e){
       contextIsolation: false
 		}
 	});
-	win.loadFile('recipe.html');
+	win.loadFile(file);
   
 	win.webContents.on('did-finish-load', () => {
- 
     win.webContents.send('dataRecipe');
 		win.webContents.print(opti,function (success, failureReason)  {
 			if (!success) console.log(failureReason);
 			console.log('Print Initiated');
-      
 		});
 	});
-  /* win.loadFile('recipe.html');
-  win.webContents.on('did-finish-load', ()=>{
-    
-    console.log(data);
-  });*/
 });
-//////////////// print
+///////////
 
-// Importing BrowserWindow from Main
+ipcMain.on('open-certficatepage',function(){
+  console.log('open');
+  win.loadFile('certificat.html');
+});
+////
+// فتح نافذة إضافة شهادة 
+ipcMain.on('open-datacertificate',function(){
+  creatnewWin("dataCertifcate.html");
+});
+// إستقبال إسم الشهادة من نافذة الاضافة 
+ipcMain.on('nameCer',function(e,name){
+  //إرسال اسم الدواء الى ملف الشهادة
+  win.webContents.send('nameCerti',name);
+  wind.close();
+});
+///
+let opt={};
+opt.type = "info";
+opt.buttons = ["ok"];
+opt.message = "les informations du certificat ont ete enregistree";
+opt.title = "enregistre";
+opt.cancelId = 1;
+opt.normalizeAccessKeys = true;
+ipcMain.on('open-messageDialog',function(){
+  dialog.showMessageBox(winDialog, opt).then((res) => {
+  });
+});
+///////
+ipcMain.on('dataDecertificat',function(e,data){
+  // let opti = {
+  //   silent: true,
+  //   printBackground: true,
+  //   color: false,
+  //   margin: {
+  //     marginType: 'printableArea'
+  //   },
+  //   landscape: false,
+  //   pagesPerSheet: 1,
+  //   collate: true,
+  //   copies: 1,
+  // //  header: 'Header of the Page',
+  // // footer: 'Footer of the Page',
+  //   // pageSize:'A5',
+  //   // scaleFactor:100
+  // }
+  // let win = new BrowserWindow({
+  //   show: false,
+  //   webPreferences: {
+  //     nodeIntegration: true,
+  //     contextIsolation: false
+  //   }
+  // });
+ // creatWindow('presecption.html');
+  
+  
+  
+  win.loadFile('presecption.html');
 
-//var print = document.getElementById('print');
+  win.webContents.on('did-finish-load', () => {
+    win.webContents.send('dataprescripton',data);
+    // win.webContents.print(opti,function (success, failureReason)  {
+    //   if (!success) console.log(failureReason);
+    //   console.log('Print Initiated');
+    // });
+  });
+})
+////
+let optt={};
+optt.type = "info";
+optt.buttons = ["ok"];
+optt.message = "Choisissez un certificat";
+optt.title = "Attention";
+optt.cancelId = 1;
+optt.normalizeAccessKeys = true;
+ipcMain.on('choseCertificat',function(){
+  dialog.showMessageBox(winDialog, optt).then((res) => {
+  });  
+});
 
+////////
+ipcMain.on('open-analysepage',function(e,name){
+  
+  win.loadFile('AnalysTIp.html');
+  // win.webContents.on("did-finish-load", () => {
+  //   win.webContents.send("nameAnalyse",name);
+  // });
+});
 
-// function handleSquirrelEvent(application) {
-//     if (process.argv.length === 1) {
-//         return false;
-//     }
+ipcMain.on('retourToAnalysepage',()=>{
+  win.loadFile('Analyse.html')
+});
 
-//     const ChildProcess = require('child_process');
-//     const path = require('path');
+ipcMain.on('Data-analysepage',()=>{
+  creatwind("DataAnalyse.html");
+});
 
-//     const appFolder = path.resolve(process.execPath, '..');
-//     const rootAtomFolder = path.resolve(appFolder, '..');
-//     const updateDotExe = path.resolve(path.join(rootAtomFolder, 'Update.exe'));
-//     const exeName = path.basename(process.execPath);
-
-//     const spawn = function(command, args) {
-//         let spawnedProcess, error;
-
-//         try {
-//             spawnedProcess = ChildProcess.spawn(command, args, {
-//                 detached: true
-//             });
-//         } catch (error) {}
-
-//         return spawnedProcess;
-//     };
-
-//     const spawnUpdate = function(args) {
-//         return spawn(updateDotExe, args);
-//     };
-
-//     const squirrelEvent = process.argv[1];
-//     switch (squirrelEvent) {
-//         case '--squirrel-install':
-//         case '--squirrel-updated':
-//             // Optionally do things such as:
-//             // - Add your .exe to the PATH
-//             // - Write to the registry for things like file associations and
-//             //   explorer context menus
-
-//             // Install desktop and start menu shortcuts
-//             spawnUpdate(['--createShortcut', exeName]);
-
-//             setTimeout(application.quit, 1000);
-//             return true;
-
-//         case '--squirrel-uninstall':
-//             // Undo anything you did in the --squirrel-install and
-//             // --squirrel-updated handlers
-
-//             // Remove desktop and start menu shortcuts
-//             spawnUpdate(['--removeShortcut', exeName]);
-
-//             setTimeout(application.quit, 1000);
-//             return true;
-
-//         case '--squirrel-obsolete':
-//             // This is called on the outgoing version of your app before
-//             // we update to the new version - it's the opposite of
-//             // --squirrel-updated
-
-//             application.quit();
-//             return true;
-//     }
-// };
+ipcMain.on('send-dataAnalyse',(e,dataAnalyse)=>{
+  console.log(dataAnalyse);
+  win.webContents.send('data-analse',dataAnalyse);
+ windo.hide();
+});
+//
+ipcMain.on("dataAnalyse-edit", function (e, datadeanalyse) {
+  console.log(datadeanalyse);
+  creatwind("EditDatadeAnalyse.html");
+  windo.webContents.on("did-finish-load", () => {
+    windo.webContents.send("data-editAnal", datadeanalyse);
+  });
+});
+//
+ipcMain.on("send-dataAnalyseEdit", function (e, arr) {
+  console.log(arr);
+  win.webContents.send("data-analyseEdit", arr);
+  windo.hide();
+});

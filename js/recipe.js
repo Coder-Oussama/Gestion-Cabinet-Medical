@@ -19,7 +19,8 @@ ipcRenderer.on("dataRecipe", function () {
   let nameS;
   let form;
   let des;
-  while (i < Drugs.length) {
+  let drugLength = Drugs.length
+  while (i < drugLength) {
     console.log(Drugs[i]);
     nameD = Drugs[i++];
     nameS = Drugs[i++];
@@ -27,7 +28,7 @@ ipcRenderer.on("dataRecipe", function () {
     des = Drugs[i++];
     let ul = document.querySelector("ul");
     let li = document.createElement("li");
-    li.innerHTML = nameD + "  (" + nameS + ")  " + form + "<div>" + des;
+    li.innerHTML = nameD + "  " + nameS + "  " + form + "<div>" + des;
     ("</div>");
     ul.append(li);
   }
@@ -39,6 +40,6 @@ ipcRenderer.on("dataRecipe", function () {
   let mounth = dateNow.getMonth();
   let year = dateNow.getFullYear();
 
-  let childate = document.createTextNode(`${year}-${mounth + 1}-${day}`);
+  let childate = document.createTextNode(`${day}-${mounth + 1}-${year}`);
   date.appendChild(childate);
 });

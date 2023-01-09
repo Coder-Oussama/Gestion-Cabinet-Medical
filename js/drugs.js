@@ -1,9 +1,10 @@
 const { ipcRenderer } = require("electron");
 const Path = require("path"); // نستورد هذه المكتبة لغرض إنشاء المسار الصحيح لملف قاعدة البيانات
+// const dbPath = "/home/yaakoub/drugsDB.db" ;
 const dbPath = Path.join(
   // ننشيء المسار الجديد ونضعه في ثابت
   Path.dirname("c://"), //  مسار القرص الصلب الذي قمنا بإختياره
-  "databases/drugsDB.db" // هنا تضع هذا المسار الذي يشير الى ملف قاعدة البيانات
+  "/databases/drugsDB.db" // هنا تضع هذا المسار الذي يشير الى ملف قاعدة البيانات
 );
 const sqlite3 = require("sqlite3");
 var db = new sqlite3.Database(dbPath, (err) => {
@@ -27,9 +28,10 @@ let j = 1;
 // استقبال الادوية الخاصة بالمرض من قاعدة البيانات
 let tbody = document.getElementById("TableData1");
 tbody.innerHTML = "";
+let drugName = localStorage.getItem("nameDrugs")
 db.each(
   "SELECT * FROM drug WHERE disease = ?",
-  [localStorage.getItem("nameDrugs")],
+  [drugName],
   (err, row) => {
     if (err) return console.log("theres error");
     console.log(row);
@@ -99,9 +101,7 @@ db.each(
 
     console.log(trr);
     tbody.append(trr);
-
     let dele = document.getElementById(`delet${j}`);
-    console.log(dele);
     let tr = document.getElementById(`ele${j}`);
     //حدث الضغط على زر الحذف
     dele.addEventListener("click", function () {
@@ -220,14 +220,12 @@ aj.addEventListener("click", function (e) {
 // إستقبال معلومات الدواء
 ipcRenderer.on("data-drug", function (e, DataDrug) {
   let bod = document.querySelector("#TableData1");
-
   let ind = bod.children.length;
   let i;
   if (ind === 0) {
     i = 0;
   } else {
     let lastElem = bod.children[ind - 1];
-
     i = Number(lastElem.children[0].innerText);
   }
 
@@ -311,8 +309,6 @@ ipcRenderer.on("data-drug", function (e, DataDrug) {
       inb.classList.add("p-3");
       td5.appendChild(inb);
       trr.appendChild(td5);
-
-      console.log(trr);
       tbody.append(trr);
 
       //حدث  تحديد الأدوية checkbox
@@ -342,7 +338,6 @@ ipcRenderer.on("data-drug", function (e, DataDrug) {
         let tr = document.getElementById(`ele${id}`);
         // حذف العنصر بعد تأكيد المستخدم
         tbody.removeChild(tr);
-
         let drugID = tr.getAttribute("idDb"); //hada hwa id nta3 dwa li baghi t7azfo
         db.run(`DELETE FROM drug WHERE id = ?`, [Number(drugID)], (err) => {
           if (err) return console.log(err.message);
@@ -401,7 +396,7 @@ ipcRenderer.on("data-drug", function (e, DataDrug) {
 
 let imp = document.getElementById("print");
 imp.addEventListener("click", function () {
-  ipcRenderer.send("open-recip");
+  ipcRenderer.send("open-recip",'recipe.html');
 });
 //
 ipcRenderer.on("save-drugs", function (e) {
