@@ -2,16 +2,15 @@ const { ipcRenderer } = require("electron");
 
 ipcRenderer.on("dataprescripton", function (e, data) {
   let TitleCrtificate = data[0];
-  let app = data[1];
+  let TextCertificate = data[1];
   let title = document.getElementById("title");
   let text = document.getElementById("text");
   title.innerText = TitleCrtificate;
-  // let doc = new DOMParser().parseFromString(TextCertificate, "text/html");
-  // text.append(doc) ;
-  // console.log(doc);
-  // console.log(text);
-  // text.innerText = JSON.parse(app);
-  console.log(app);
+  
+  let app = document.createElement('div')
+  app.innerHTML = TextCertificate.trim();
+  // console.log(typeof app);
+  // console.log( app);
   text.append(app);
 
   ///////////////

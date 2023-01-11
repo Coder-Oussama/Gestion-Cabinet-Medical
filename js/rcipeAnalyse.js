@@ -16,7 +16,7 @@ ipcRenderer.on("dataRecipe", function () {
     description = el[2]
     let ul = document.querySelector("ul");
     let li = document.createElement("li");
-    li.innerText = `${name}   (${fulName})   ${description}`
+    li.innerText = `${name}   ( ${fulName} ) `
     
     ul.append(li);
   });

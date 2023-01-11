@@ -136,17 +136,12 @@ impr.addEventListener("click", function (e) {
   let TitleCrtificate = document.getElementById("inbutText");
   let TextCertificate = document.getElementById("textArea");
 
- 
-  let app = document.createElement('div')
-  app.innerHTML = TextCertificate.innerHTML;
-  console.log(app);
-
-  // if (TitleCrtificate.value === "" && app === "") {
-  //   ipcRenderer.send("choseCertificat");
-  // } else {
-  //   let data = [TitleCrtificate.value, JSON.stringify(app)];
-  //   ipcRenderer.send("dataDecertificat", data);
-  // }
+  if (TitleCrtificate.value === "" && TextCertificate.innerHTML === "") {
+    ipcRenderer.send("choseCertificat");
+  } else {
+    let data = [TitleCrtificate.value, TextCertificate.innerHTML];
+    ipcRenderer.send("dataDecertificat", data);
+  }
 });
  
 

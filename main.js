@@ -231,29 +231,29 @@ ipcMain.on('open-messageDialog',function(){
 });
 ///////
 ipcMain.on('dataDecertificat',function(e,data){
-  // let opti = {
-  //   silent: true,
-  //   printBackground: true,
-  //   color: false,
-  //   margin: {
-  //     marginType: 'printableArea'
-  //   },
-  //   landscape: false,
-  //   pagesPerSheet: 1,
-  //   collate: true,
-  //   copies: 1,
-  // //  header: 'Header of the Page',
-  // // footer: 'Footer of the Page',
-  //   // pageSize:'A5',
-  //   // scaleFactor:100
-  // }
-  // let win = new BrowserWindow({
-  //   show: false,
-  //   webPreferences: {
-  //     nodeIntegration: true,
-  //     contextIsolation: false
-  //   }
-  // });
+  let opti = {
+    silent: true,
+    printBackground: true,
+    color: false,
+    margin: {
+      marginType: 'printableArea'
+    },
+    landscape: false,
+    pagesPerSheet: 1,
+    collate: true,
+    copies: 1,
+  //  header: 'Header of the Page',
+  // footer: 'Footer of the Page',
+    // pageSize:'A5',
+    // scaleFactor:100
+  }
+  let win = new BrowserWindow({
+    show: false,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
+  });
  // creatWindow('presecption.html');
   
   
@@ -262,10 +262,10 @@ ipcMain.on('dataDecertificat',function(e,data){
 
   win.webContents.on('did-finish-load', () => {
     win.webContents.send('dataprescripton',data);
-    // win.webContents.print(opti,function (success, failureReason)  {
-    //   if (!success) console.log(failureReason);
-    //   console.log('Print Initiated');
-    // });
+    win.webContents.print(opti,function (success, failureReason)  {
+      if (!success) console.log(failureReason);
+      console.log('Print Initiated');
+    });
   });
 })
 ////
