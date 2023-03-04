@@ -9,10 +9,7 @@ ipcRenderer.on("dataprescripton", function (e, data) {
   
   let app = document.createElement('div')
   app.innerHTML = TextCertificate.trim();
-  // console.log(typeof app);
-  // console.log( app);
   text.append(app);
-
   ///////////////
   let Name = document.getElementById("name");
   let Age = document.getElementById("age");

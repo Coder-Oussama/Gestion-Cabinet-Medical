@@ -40,7 +40,7 @@ db.run(
 )`,
   (err) => {
     if (err) return console.log(err);
-    console.log("ok");
+    console.log("ok drug");
   }
 );
 db.run(`
@@ -51,7 +51,18 @@ db.run(`
 )`,
 (er) => {
   if (er) return console.log(er);
-  console.log("ok2");
+  console.log("ok certaficate");
+  }
+);
+db.run(`
+  CREATE TABLE IF NOT EXISTS lecho (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title text,
+  certaficat text
+)`,
+(er) => {
+  if (er) return console.log(er);
+  console.log("ok lecho");
   }
 );
 

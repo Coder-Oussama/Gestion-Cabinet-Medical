@@ -254,10 +254,6 @@ ipcMain.on('dataDecertificat',function(e,data){
       contextIsolation: false
     }
   });
- // creatWindow('presecption.html');
-  
-  
-  
   win.loadFile('presecption.html');
 
   win.webContents.on('did-finish-load', () => {

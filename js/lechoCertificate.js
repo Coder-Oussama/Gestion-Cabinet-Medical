@@ -21,14 +21,13 @@ var db = new sqlite3.Database(dbPath, (err) => {
     console.log("Connected to db");
   }
 });
-
 // إضافة سرتفيكة
 let AjouterCert = document.getElementById("ajouter");
 AjouterCert.addEventListener("click", function () {
   ipcRenderer.send("open-datacertificate");
 });
 // السرتفيكات المحفوظة
-db.all(`SELECT * FROM certaficate`, (err, rows) => {
+db.all(`SELECT * FROM lecho`, (err, rows) => {
   if (err) return console.log(err);
   rows.forEach((row) => {
     // console.log(row);
@@ -52,7 +51,7 @@ db.all(`SELECT * FROM certaficate`, (err, rows) => {
       e.currentTarget.classList.add("cliked");
       id = e.currentTarget.id;
       // console.log(id);
-      db.get(`SELECT * FROM certaficate WHERE id = ?`, [id], (err, row) => {
+      db.get(`SELECT * FROM lecho WHERE id = ?`, [id], (err, row) => {
         if (err) return console.log(err);
         // console.log(row);
         let TextCertificate = document.getElementById("textArea");
@@ -62,7 +61,7 @@ db.all(`SELECT * FROM certaficate`, (err, rows) => {
       });
 
       //  هادا كود الحذف
-      // db.run(`DELETE FROM certaficate WHERE id = ?`, [id], (err) => {
+      // db.run(`DELETE FROM lecho WHERE id = ?`, [id], (err) => {
       //   if (err) return console.log(err.message);
       // });
     });
@@ -71,7 +70,7 @@ db.all(`SELECT * FROM certaficate`, (err, rows) => {
     save.addEventListener('click',function(){
     
       // console.log(data);
-      let sql = `UPDATE certaficate SET certaficat = ? WHERE id = ?`
+      let sql = `UPDATE lecho SET certaficat = ? WHERE id = ?`
       db.run(sql, [data, id])
     });*/
 });
@@ -79,7 +78,7 @@ db.all(`SELECT * FROM certaficate`, (err, rows) => {
 ipcRenderer.on("nameCerti", function (e, name) {
   // حفظ عنوان السرتفيكة
   db.run(
-    `INSERT INTO certaficate (title, certaficat) values(?,?)`,
+    `INSERT INTO lecho (title, certaficat) values(?,?)`,
     [name, "  "],
     function (err) {
       if (err) return console.log(err);
@@ -122,7 +121,7 @@ save.addEventListener("click", function (e) {
   } else {
     let cliked = document.querySelector(".cliked");
     let id = cliked.getAttribute("id");
-    let sql = `UPDATE certaficate SET certaficat = ? , title = ? WHERE id = ?`;
+    let sql = `UPDATE lecho SET certaficat = ? , title = ? WHERE id = ?`;
     db.run(sql, [TextCertificate.innerHTML, TitleCrtificate.value, id]);
     ipcRenderer.send("open-messageDialog");
   }
@@ -142,7 +141,6 @@ impr.addEventListener("click", function (e) {
     ipcRenderer.send("dataDecertificat", data);
   }
 });
- 
 
 // كود المحرر
 const elements = document.querySelectorAll(".editBtn");

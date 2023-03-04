@@ -7,17 +7,19 @@ ipcRenderer.on("dataRecipe", function () {
   let textage = document.createTextNode(window.localStorage.getItem("Age"));
   Name.appendChild(textname);
   Age.appendChild(textage);
-  document.querySelector("u").innerText = window.localStorage.analyseName
-  let analyses = JSON.parse(localStorage.analyse)
-  let name, fulName, description
-  analyses.forEach(el => {
-    name = el[0]
-    fulName = el[1]
-    description = el[2]
+  // document.querySelector("u").innerText = window.localStorage.analyseName;
+  let analyses = JSON.parse(localStorage.analyse);
+  let name, fulName, description;
+  analyses.forEach((el) => {
+    name = el[0];
+    fulName = el[1];
+    description = el[2];
     let ul = document.querySelector("ul");
     let li = document.createElement("li");
-    li.innerText = `${name}   ( ${fulName} ) `
-    
+    // li.innerText = `${name}  ( ${fulName} ) `
+    li.innerHTML =
+      name + " &nbsp; &nbsp; (&nbsp; &nbsp;" + fulName + " &nbsp; &nbsp;)";
+
     ul.append(li);
   });
 
@@ -30,4 +32,4 @@ ipcRenderer.on("dataRecipe", function () {
   let childate = document.createTextNode(`${day}-${mounth + 1}-${year}`);
   date.appendChild(childate);
   // window.localStorage.removeItem('analyse')
-})
+});

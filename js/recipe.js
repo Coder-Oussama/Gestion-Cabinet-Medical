@@ -28,7 +28,14 @@ ipcRenderer.on("dataRecipe", function () {
     des = Drugs[i++];
     let ul = document.querySelector("ul");
     let li = document.createElement("li");
-    li.innerHTML = nameD + "  " + nameS + "  " + form + "<div>" + des;
+    li.innerHTML =
+      nameD +
+      "&nbsp; &nbsp; &nbsp;" +
+      nameS +
+      "&nbsp; &nbsp; &nbsp;" +
+      form +
+      " <div>" +
+      des;
     ("</div>");
     ul.append(li);
   }
